@@ -12,12 +12,17 @@ angular.module('webserverApp')
 
   	console.log('Started controller'); 
 	/* Confiigure the API baseUrl */
-	JsonldRest.setBaseUrl('http://acmenetworks.com:3000/');
+	JsonldRest.setBaseUrl('http://acmenetworks.com:3000/api/');
 
 	console.log('Set baseURL',JsonldRest);
 
+
+
+	//*****************************************************************************************************************
+	// 				TO-DO this should use the API entry point to find the ResourceFacingServiceCatalogue URL String
+	//*****************************************************************************************************************
 	/* A handler to a server collection of ResourceFacingServiceCatalogue items with a local context interpretation */
-	var rfscatalogue = JsonldRest.collection('api/ResourceFacingServiceCatalogue');
+	var rfscatalogue = JsonldRest.collection('ResourceFacingServiceCatalogue');   
 	console.log('ResourceFacingServiceCatalogue collection', rfscatalogue);
     $scope.name='Not set';
 
