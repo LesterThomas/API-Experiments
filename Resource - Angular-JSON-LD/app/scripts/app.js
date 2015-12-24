@@ -19,12 +19,14 @@ angular
     'angularJsonld'
   ])
   .config(function(jsonldContextProvider){
-    /* If we need to change the semantics of 'fullName' we just do it here for the entire application */
+    /* If we need to change the semantics of fullName we just do it here for the entire application */
     jsonldContextProvider.add({
-      "schema": "http://schema.org/",
-      "foaf": "http://xmlns.com/foaf/0.1/",
-      "fullName": "schema:name", /* My client calls 'fullName' the http://schema.org/name property */
-      "friends": "foaf:knows" /* My client calls 'friends' the http://xmlns.com/foaf/0.1/knows property */
+      schema: 'http://schema.org/',
+      foaf: 'http://xmlns.com/foaf/0.1/',
+      list: 'http://www.w3.org/ns/hydra/core#member',
+      name: 'schema:name', /* My client calls 'name' the http://schema.org/name property */
+      description: 'schema:description', /* My client calls 'name' the http://schema.org/description property */
+      friends: 'foaf:knows' /* My client calls 'friends' the http://xmlns.com/foaf/0.1/knows property */
     });
   })
   .config(function ($routeProvider) {

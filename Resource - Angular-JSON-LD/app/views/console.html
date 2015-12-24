@@ -1,6 +1,11 @@
 
-<p>Name: {{name}}</p>
-<p>Is friends with</p>
+
+<p>Displaying one RFS Catalogue at ID #1: {{name}}</p>
+
+
+<p>Displaying all the RFS Catalogue items:</p>
+
+
 <ul>
-	<li ng-repeat="friend in friends">{{friend}}</li>
+	<li ng-repeat="rfs in rfsCollection">{{rfs.name}}:{{rfs.description}}</li>
 </ul>

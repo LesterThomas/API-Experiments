@@ -7,5 +7,6 @@ A series of experiments around APIs. Each experiment folder has its own README. 
 3. Once a RFS Client and API provider are created, I will create a CFS service with its own user interface. This CFS service will be able to orchestrate across multiple RFS providers and will be able to integrate to new RFS providers just by being told the providers API Entry Point.
 
 
+Progress so far: I have simple client talking to simple server. Load the clients console page.
 
 
