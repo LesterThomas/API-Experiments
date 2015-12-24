@@ -10,6 +10,11 @@ The experiment shows:
 The experiment is based on https://github.com/io-informatics/angular-jsonld
 
 
+The next plan is to integrate this to the AcmeNetworks API Provider
+
+
+
+
 ## Build & development
 
 Run `grunt` for building and `grunt serve` for preview.
