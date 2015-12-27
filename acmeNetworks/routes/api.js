@@ -5,12 +5,11 @@ var rfsCatalogue = require('./rfsCatalogue');
 var contexts = require('./contexts');
 var vocab = require('./vocab');
 
+
+
 router.use('/RFSCatalogue', rfsCatalogue);
 router.use('/contexts', contexts);
 router.use('/vocab', vocab);
-
-
-
 
 router.get('/', function(req, res) {
 	res.contentType("application/ld+json");

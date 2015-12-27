@@ -4,6 +4,7 @@ var request = require('request');
 
 
 
+
 router.get('/', function(req, res) {
 	res.contentType("application/ld+json");
 	res.setHeader("link",'<http://lesterthomas.ddns.net:3000/api/vocab>; rel="http://www.w3.org/ns/hydra/core#apiDocumentation"');
@@ -17,7 +18,7 @@ router.get('/', function(req, res) {
 		  	for(var i=0; i<rfsCatalogue.rows.length; i++) {
 		  		var catalogueItem=rfsCatalogue.rows[i].doc;
 		  		catalogueItem['@id']='http://lesterthomas.ddns.net:3000/api/' + catalogueItem._id.replace(':','/');
-		  		catalogueItem['@type']='RFSCatalogue';
+		  		catalogueItem['@type']='http://schema.org/RFSCatalogue';
 		  		delete catalogueItem._id;
 		  		delete catalogueItem._rev;
 		  		delete catalogueItem.description;
@@ -42,6 +43,9 @@ router.get('/', function(req, res) {
 
 
 
+
+
+
 router.get('/:rfsId', function(req, res) {
 	res.contentType("application/ld+json");
 	res.setHeader("link",'<http://lesterthomas.ddns.net:3000/api/vocab>; rel="http://www.w3.org/ns/hydra/core#apiDocumentation"');
@@ -50,7 +54,7 @@ router.get('/:rfsId', function(req, res) {
 	request('http://localhost:5984/acmenetworks/RFSCatalogue:' + req.params.rfsId, function (error, response, body) {
 	
 		if (!error && response.statusCode == 200) {
-			var rfsCatalogueItem=JSON.parse(body);
+			var rfsCatalogueItem=JSON.parse(body.name);
 		  	console.log(rfsCatalogueItem); 
 		  	rfsCatalogueItem['@id']='http://lesterthomas.ddns.net:3000/api/' + rfsCatalogueItem._id.replace(':','/');
 		  	rfsCatalogueItem['@type']='RFSCatalogue';
