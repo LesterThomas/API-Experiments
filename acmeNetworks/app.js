@@ -36,27 +36,16 @@ app.use(function(req, res, next) {
 app.use(logger('dev'));
 
 
-app.use(bodyParser.json({type:'application/ld+json'}));
+app.use(bodyParser.json({type:'*/*'}));  // we could be more specific and use application/ld+json We do need to change from the default pf application/json
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-app.post('/api/RFSCatalogue/', bodyParser.json(), function(req, res) {
-    //res.contentType("application/ld+json");
-    console.log("POST to http://lesterthomas.ddns.net:3000/api/RFSCatalogue",req.body);
-    console.log("name",JSON.stringify(req.body.name));
-    console.log("description",JSON.stringify(req.body.name));
-    //res.setHeader("link",'<http://lesterthomas.ddns.net:3000/api/vocab>; rel="http://www.w3.org/ns/hydra/core#apiDocumentation"');
 
-    //request('http://localhost:5984/acmenetworks/_all_docs?startkey="RFSCatalogue"&endkey="RFSCatalogue:99999"&include_docs=true', function (error, response, body) {
-        
-        res.send("OK");
-    //})
-  
-});
 
 app.use('/', routes);
 app.use('/api', api);

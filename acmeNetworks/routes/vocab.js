@@ -91,7 +91,33 @@ router.get('/', function(req, res) {
 					"expects": null,
 					"returns": "http://schema.org/RFSCatalogue",
 					"statusCodes": []
+					},
+					{
+					"@id": "_:RFSCatalogue_delete",
+					"@type": "http://schema.org/DeleteAction",
+					"method": "DELETE",
+					"label": "Deletes a Resource Facing Service Catalogue entity",
+					"description": null,
+					"expects": null,
+					"returns": "http://www.w3.org/2002/07/owl#Nothing",
+					"statusCodes": []
+					},
+					{
+					"@id": "_:RFSCatalogue_replace",
+					"@type": "http://schema.org/UpdateAction",
+					"method": "PUT",
+					"label": "Replaces an existing Resource Facing Service Catalogue entity",
+					"description": null,
+					"expects": "http://schema.org/RFSCatalogue",
+					"returns": "http://schema.org/RFSCatalogue",
+					"statusCodes": [
+						{
+						"code": 404,
+						"description": "If the RFSCatalogue entity wasn't found."
+						}
+					]
 					}
+
 				],
 				"supportedProperty": [
 					{
