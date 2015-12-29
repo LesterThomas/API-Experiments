@@ -165,6 +165,7 @@ router.delete('/:rfsId', function(req, res) {
 router.put('/:rfsId', function(req, res) {
 	console.log("PUT to http://lesterthomas.ddns.net:3000/api/RFSCatalogue/" + req.params.rfsId,req.body);
     var updatedDocument=req.body;
+    delete updatedDocument['@context'];
 
 	res.contentType("application/ld+json");
 	res.setHeader("link",'<http://lesterthomas.ddns.net:3000/api/vocab>; rel="http://www.w3.org/ns/hydra/core#apiDocumentation"');
@@ -187,7 +188,7 @@ router.put('/:rfsId', function(req, res) {
 				       body: JSON.stringify(updatedDocument) 
 					   }]
 				}, function (error, response, body) {
-					console.log('Database delete response', body); 
+					console.log('Database PUT response', body); 
 					var rfsCatalogueItem=JSON.parse(body);
 				  	console.log('rfsCatalogueItem',rfsCatalogueItem); 
 				  	rfsCatalogueItem['@id']='http://lesterthomas.ddns.net:3000/api/' + rfsCatalogueItem.id.replace(':','/');
