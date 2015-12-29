@@ -20,7 +20,7 @@ console.log('Testing constants',constants);
 router.get('/', function(req, res) {
 	console.log('GET /api/RFSCatalogue');
 	
-	request('http://localhost:5984/acmenetworks/_all_docs?startkey="RFSCatalogue"&endkey="RFSCatalogue:99999"&include_docs=true', function (error, response, body) {
+	request('http://localhost:5984/vnetworks/_all_docs?startkey="RFSCatalogue"&endkey="RFSCatalogue:99999"&include_docs=true', function (error, response, body) {
 		
 		var rfsCatalogueArray=[];
 		if (!error && response.statusCode == 200) {
@@ -71,7 +71,7 @@ router.post('/', function(req, res) {
 
     
 	//retrieve the last item from database to work out the next id
-	request('http://localhost:5984/acmenetworks/_all_docs?startkey="RFSCatalogue:9999"&endkey="RFSCatalogue"&descending=true&limit=1', function (error, response, body) {
+	request('http://localhost:5984/vnetworks/_all_docs?startkey="RFSCatalogue:9999"&endkey="RFSCatalogue"&descending=true&limit=1', function (error, response, body) {
 
 		if (!error && response.statusCode == 200) {
 			var id=1;
@@ -90,7 +90,7 @@ router.post('/', function(req, res) {
 
 		  	request({
 				   method: 'PUT',
-				   uri: 'http://localhost:5984/acmenetworks/RFSCatalogue:' + id,
+				   uri: 'http://localhost:5984/vnetworks/RFSCatalogue:' + id,
 				   multipart: [{
 				       'content-type':'application/json',
 				       body: JSON.stringify(newResourceCatalogue) 
@@ -125,8 +125,8 @@ router.get('/:rfsId', function(req, res) {
 	res.contentType("application/ld+json");
 	res.setHeader("link",'<'+constants.API_ENTRY_POINT_VOCAB+'>; rel="http://www.w3.org/ns/hydra/core#apiDocumentation"');
 
-	console.log('Send db request','http://localhost:5984/acmenetworks/RFSCatalogue:' + req.params.rfsId);
-	request('http://localhost:5984/acmenetworks/RFSCatalogue:' + req.params.rfsId, function (error, response, body) {
+	console.log('Send db request','http://localhost:5984/vnetworks/RFSCatalogue:' + req.params.rfsId);
+	request('http://localhost:5984/vnetworks/RFSCatalogue:' + req.params.rfsId, function (error, response, body) {
 	
 		if (!error && response.statusCode == 200) {
 			var rfsCatalogueItem=JSON.parse(body);
@@ -155,14 +155,14 @@ router.delete('/:rfsId', function(req, res) {
 	//res.setHeader("link",'<'+constants.API_ENTRY_POINT_VOCAB+'>; rel="http://www.w3.org/ns/hydra/core#apiDocumentation"');
 
 	//get the document first as we need the revision number to delete it
-	console.log('Send db request','http://localhost:5984/acmenetworks/RFSCatalogue:' + req.params.rfsId );
-	request('http://localhost:5984/acmenetworks/RFSCatalogue:' + req.params.rfsId, function (error, response, body) {
+	console.log('Send db request','http://localhost:5984/vnetworks/RFSCatalogue:' + req.params.rfsId );
+	request('http://localhost:5984/vnetworks/RFSCatalogue:' + req.params.rfsId, function (error, response, body) {
 	
 		if (!error && response.statusCode == 200) {
 
 			var rfsCatalogueItem=JSON.parse(body);
 		  	console.log('rfsCatalogueItem', rfsCatalogueItem); 
-		  	var dbUrl='http://localhost:5984/acmenetworks/' + rfsCatalogueItem._id + '?rev=' + rfsCatalogueItem._rev;
+		  	var dbUrl='http://localhost:5984/vnetworks/' + rfsCatalogueItem._id + '?rev=' + rfsCatalogueItem._rev;
 		  	console.log('dbUrl', dbUrl);
 			request({
 				   method: 'DELETE',
@@ -189,14 +189,14 @@ router.put('/:rfsId', function(req, res) {
 	res.setHeader("link",'<'+constants.API_ENTRY_POINT_VOCAB+'>; rel="http://www.w3.org/ns/hydra/core#apiDocumentation"');
 
 	//get the document first as we need the revision number to update it
-	console.log('Send db request','http://localhost:5984/acmenetworks/RFSCatalogue:' + req.params.rfsId );
-	request('http://localhost:5984/acmenetworks/RFSCatalogue:' + req.params.rfsId, function (error, response, body) {
+	console.log('Send db request','http://localhost:5984/vnetworks/RFSCatalogue:' + req.params.rfsId );
+	request('http://localhost:5984/vnetworks/RFSCatalogue:' + req.params.rfsId, function (error, response, body) {
 	
 		if (!error && response.statusCode == 200) {
 
 			var rfsCatalogueItem=JSON.parse(body);
 		  	console.log('Existing rfsCatalogueItem', rfsCatalogueItem); 
-		  	var dbUrl='http://localhost:5984/acmenetworks/' + rfsCatalogueItem._id + '?rev=' + rfsCatalogueItem._rev;
+		  	var dbUrl='http://localhost:5984/vnetworks/' + rfsCatalogueItem._id + '?rev=' + rfsCatalogueItem._rev;
 		  	console.log('dbUrl', dbUrl);
 			request({
 				   method: 'PUT',

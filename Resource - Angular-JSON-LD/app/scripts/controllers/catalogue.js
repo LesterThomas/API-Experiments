@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc function
- * @name webserverApp.controller:ConsoleCtrl
+ * @name webserverApp.controller:CatalogueCtrl
  * @description
- * # ConsoleCtrl
+ * # CatalogueCtrl
  * Controller of the webserverApp
  */
 angular.module('webserverApp')
-  .controller('ConsoleCtrl', ['$scope','$http','JsonldRest', function ($scope,$http,JsonldRest) {
+  .controller('CatalogueCtrl', ['$scope','$http','JsonldRest', function ($scope,$http,JsonldRest) {
 
   	console.log('Started controller'); 
   	$scope.getRFSItem=function(rfsItem){

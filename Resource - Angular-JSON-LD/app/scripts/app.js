@@ -42,10 +42,10 @@ angular
         controller: 'AboutCtrl',
         controllerAs: 'about'
       })
-      .when('/console', {
-        templateUrl: 'views/console.html',
-        controller: 'ConsoleCtrl',
-        controllerAs: 'console'
+      .when('/catalogue', {
+        templateUrl: 'views/catalogue.html',
+        controller: 'CatalogueCtrl',
+        controllerAs: 'catalogue'
       })
       .otherwise({
         redirectTo: '/'
