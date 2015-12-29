@@ -1,6 +1,10 @@
+var constants=require('./constants');
 var express = require('express');
 var router = express.Router();
 var request = require('request');
+
+console.log('Inside rfsCatalogue module');
+console.log('Testing constants',constants);
 
 /*******************************************************************
         Get all RFSCatalogue items
@@ -17,7 +21,7 @@ router.get('/', function(req, res) {
 		  	
 		  	for(var i=0; i<rfsCatalogue.rows.length; i++) {
 		  		var catalogueItem=rfsCatalogue.rows[i].doc;
-		  		catalogueItem['@id']='http://lesterthomas.ddns.net:3000/api/' + catalogueItem._id.replace(':','/');
+		  		catalogueItem['@id']=constants.API_ENTRY_POINT_RFSCATALOGUE + '/' + catalogueItem._id.split(':')[1];
 		  		catalogueItem['@type']='http://schema.org/RFSCatalogue';
 		  		delete catalogueItem._id;
 		  		delete catalogueItem._rev;
@@ -27,16 +31,16 @@ router.get('/', function(req, res) {
 
 		  	var outputJsonLd={ "@context":["http://schema.org/",{
 				hydra: "http://www.w3.org/ns/hydra/core#",
-				vocab: "http://lesterthomas.ddns.net:3000/api/vocab#",
+				vocab: constants.API_ENTRY_POINT_VOCAB + '#',
 				RFSCatalogueCollection: "vocab:RFSCatalogueCollection",
 				members: "http://www.w3.org/ns/hydra/core#member"
 				}],
 				"@type": "RFSCatalogueCollection",
-	  			"@id": "http://lesterthomas.ddns.net:3000/api/RFSCatalogue/",
+	  			"@id": constants.API_ENTRY_POINT_RFSCATALOGUE,
 	  			members:rfsCatalogueArray
 			};
 			res.contentType("application/ld+json");
-			res.setHeader("link",'<http://lesterthomas.ddns.net:3000/api/vocab>; rel="http://www.w3.org/ns/hydra/core#apiDocumentation"');
+			res.setHeader("link",'<'+constants.API_ENTRY_POINT_VOCAB+'>; rel="http://www.w3.org/ns/hydra/core#apiDocumentation"');
 			res.send(JSON.stringify(outputJsonLd));
 		} else {
 			res.send('{"error":"'+error+'", "dbResponseStatusCode":"'+response.statusCode+'"');
@@ -51,7 +55,7 @@ router.get('/', function(req, res) {
 ***************************************************************************************/
 router.post('/', function(req, res) {
     //res.contentType("application/ld+json");
-    console.log("POST to http://lesterthomas.ddns.net:3000/api/RFSCatalogue",req.body);
+    console.log("POST to " + constants.API_ENTRY_POINT_RFSCATALOGUE,req.body);
     console.log("name",JSON.stringify(req.body.name));
     console.log("description",JSON.stringify(req.body.description));
 
@@ -80,8 +84,8 @@ router.post('/', function(req, res) {
 				var dbResult=JSON.parse(body);
 			   	console.log("dbResult",dbResult);
 
-				outId="http://lesterthomas.ddns.net:3000/api/RFSCatalogue/"+dbResult.id.split(':')[1];
-				var outputJSON={"@context":"http://lesterthomas.ddns.net:3000/api/contexts/RFSCatalogue.jsonld",
+				outId=constants.API_ENTRY_POINT_RFSCATALOGUE + '/' +dbResult.id.split(':')[1];
+				var outputJSON={"@context":constants.API_ENTRY_POINT_CONTEXT + "/RFSCatalogue.jsonld",
 						"@id":outId,
 						"@type":"RFSCatalogue"};
 
@@ -89,7 +93,7 @@ router.post('/', function(req, res) {
 		  		delete rfsCatalogueItem.rev;
 
 		  		res.contentType("application/ld+json");
-				res.setHeader("link",'<http://lesterthomas.ddns.net:3000/api/vocab>; rel="http://www.w3.org/ns/hydra/core#apiDocumentation"');
+				res.setHeader("link",'<'+constants.API_ENTRY_POINT_VOCAB+'>; rel="http://www.w3.org/ns/hydra/core#apiDocumentation"');
 				res.send(JSON.stringify(outputJSON));
 
 			});
@@ -105,7 +109,7 @@ router.post('/', function(req, res) {
 ***************************************************************************************/
 router.get('/:rfsId', function(req, res) {
 	res.contentType("application/ld+json");
-	res.setHeader("link",'<http://lesterthomas.ddns.net:3000/api/vocab>; rel="http://www.w3.org/ns/hydra/core#apiDocumentation"');
+	res.setHeader("link",'<'+constants.API_ENTRY_POINT_VOCAB+'>; rel="http://www.w3.org/ns/hydra/core#apiDocumentation"');
 
 	console.log('Send db request','http://localhost:5984/acmenetworks/RFSCatalogue:' + req.params.rfsId);
 	request('http://localhost:5984/acmenetworks/RFSCatalogue:' + req.params.rfsId, function (error, response, body) {
@@ -113,12 +117,12 @@ router.get('/:rfsId', function(req, res) {
 		if (!error && response.statusCode == 200) {
 			var rfsCatalogueItem=JSON.parse(body);
 		  	console.log(rfsCatalogueItem); 
-		  	rfsCatalogueItem['@id']='http://lesterthomas.ddns.net:3000/api/' + rfsCatalogueItem._id.replace(':','/');
+		  	rfsCatalogueItem['@id']=constants.API_ENTRY_POINT_RFSCATALOGUE + '/' + rfsCatalogueItem._id.split(':')[1];
 		  	rfsCatalogueItem['@type']='RFSCatalogue';
 		  	delete rfsCatalogueItem._id;
 		  	delete rfsCatalogueItem._rev;
 	 
-			rfsCatalogueItem['@context']="http://lesterthomas.ddns.net:3000/api/contexts/RFSCatalogue.jsonld";
+			rfsCatalogueItem['@context']=constants.API_ENTRY_POINT_CONTEXT + "/RFSCatalogue.jsonld";
 			res.send(JSON.stringify(rfsCatalogueItem));
 		} else {
 			res.send('{"error":"'+error+'", "dbResponseStatusCode":"'+response.statusCode+'"');
@@ -134,7 +138,7 @@ router.get('/:rfsId', function(req, res) {
 router.delete('/:rfsId', function(req, res) {
 
 	//res.contentType("application/ld+json");
-	//res.setHeader("link",'<http://lesterthomas.ddns.net:3000/api/vocab>; rel="http://www.w3.org/ns/hydra/core#apiDocumentation"');
+	//res.setHeader("link",'<'+constants.API_ENTRY_POINT_VOCAB+'>; rel="http://www.w3.org/ns/hydra/core#apiDocumentation"');
 
 	//get the document first as we need the revision number to delete it
 	console.log('Send db request','http://localhost:5984/acmenetworks/RFSCatalogue:' + req.params.rfsId );
@@ -163,12 +167,12 @@ router.delete('/:rfsId', function(req, res) {
         Update a RFSCatalogue item by doing a PUT. Get the revision from the existing item first 
 ***************************************************************************************/
 router.put('/:rfsId', function(req, res) {
-	console.log("PUT to http://lesterthomas.ddns.net:3000/api/RFSCatalogue/" + req.params.rfsId,req.body);
+	console.log("PUT to "+constants.API_ENTRY_POINT_RFSCATALOGUE + "/" + req.params.rfsId,req.body);
     var updatedDocument=req.body;
     delete updatedDocument['@context'];
 
 	res.contentType("application/ld+json");
-	res.setHeader("link",'<http://lesterthomas.ddns.net:3000/api/vocab>; rel="http://www.w3.org/ns/hydra/core#apiDocumentation"');
+	res.setHeader("link",'<'+constants.API_ENTRY_POINT_VOCAB+'>; rel="http://www.w3.org/ns/hydra/core#apiDocumentation"');
 
 	//get the document first as we need the revision number to update it
 	console.log('Send db request','http://localhost:5984/acmenetworks/RFSCatalogue:' + req.params.rfsId );
@@ -191,12 +195,12 @@ router.put('/:rfsId', function(req, res) {
 					console.log('Database PUT response', body); 
 					var rfsCatalogueItem=JSON.parse(body);
 				  	console.log('rfsCatalogueItem',rfsCatalogueItem); 
-				  	rfsCatalogueItem['@id']='http://lesterthomas.ddns.net:3000/api/' + rfsCatalogueItem.id.replace(':','/');
+				  	rfsCatalogueItem['@id']=constants.API_ENTRY_POINT_RFSCATALOGUE + '/' + rfsCatalogueItem.id.split(':')[1];
 				  	rfsCatalogueItem['@type']='RFSCatalogue';
 				  	delete rfsCatalogueItem.id;
 				  	delete rfsCatalogueItem.rev;
 			 
-					rfsCatalogueItem['@context']="http://lesterthomas.ddns.net:3000/api/contexts/RFSCatalogue.jsonld";
+					rfsCatalogueItem['@context']=constants.API_ENTRY_POINT_CONTEXT + "/RFSCatalogue.jsonld";
 					res.send(JSON.stringify(rfsCatalogueItem));
 				});
 

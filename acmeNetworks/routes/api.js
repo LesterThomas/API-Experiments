@@ -1,3 +1,4 @@
+var constants=require('./constants');
 var express = require('express');
 var router = express.Router();
 var request = require('request');
@@ -7,19 +8,22 @@ var vocab = require('./vocab');
 
 
 
-router.use('/RFSCatalogue', rfsCatalogue);
-router.use('/contexts', contexts);
-router.use('/vocab', vocab);
+console.log('Inside API module');
+console.log('Testing constants',constants);
+
+router.use(constants.RFSCATALOGUE_ROUTE, rfsCatalogue);
+router.use(constants.CONTEXT_ROUTE, contexts);
+router.use(constants.VOCAB_ROUTE, vocab);
 
 router.get('/', function(req, res) {
 	res.contentType("application/ld+json");
-	res.setHeader("link",'<http://lesterthomas.ddns.net:3000/api/vocab>; rel="http://www.w3.org/ns/hydra/core#apiDocumentation"');
+	res.setHeader("link",'<'+constants.API_ENTRY_POINT_VOCAB+'>; rel="http://www.w3.org/ns/hydra/core#apiDocumentation"');
 
 	var entryPoint={
-		  "@context":"http://lesterthomas.ddns.net:3000/api/contexts/EntryPoint.jsonld",
-		  "@id": "http://lesterthomas.ddns.net:3000/api/",
+		  "@context":constants.API_ENTRY_POINT_CONTEXT + "/EntryPoint.jsonld",
+		  "@id": constants.API_ENTRY_POINT,
 		  "@type": "EntryPoint",
-		  "RFSCatalogue": "http://lesterthomas.ddns.net:3000/api/RFSCatalogue"
+		  "RFSCatalogue": constants.API_ENTRY_POINT_RFSCATALOGUE
 		};
 	res.send(JSON.stringify(entryPoint));
 	

@@ -27,6 +27,7 @@ angular
       name: 'schema:name', /* My client calls 'name' the http://schema.org/name property */
       description: 'schema:description', /* My client calls 'name' the http://schema.org/description property */
       friends: 'foaf:knows' /* My client calls 'friends' the http://xmlns.com/foaf/0.1/knows property */
+      //RFSCatalogue:'RFSCatalogue' /* My client calls 'RFSCatalogue' the RFSCatalogue property */
     });
   })
   .config(function ($routeProvider) {
