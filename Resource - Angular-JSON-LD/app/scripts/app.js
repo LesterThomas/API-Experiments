@@ -16,7 +16,8 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'angularJsonld'
+    'angularJsonld',
+    'ui.bootstrap'
   ])
   .config(function(jsonldContextProvider){
     /* If we need to change the semantics of fullName we just do it here for the entire application */

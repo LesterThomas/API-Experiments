@@ -1,0 +1,44 @@
+
+<div class="modal-header">
+    <h3 class="modal-title">{{integrationPoint._id}} </h3>
+</div>
+<div class="modal-body" style="height:300px;">
+    <p>
+    	{{integrationPoint.EntryPoint}} &nbsp; 
+    	<button class="btn btn-warning" type="button" ng-click="delete()">Delete</button>
+    </p>
+
+	<table class="table table-striped ">
+		<thead>
+		<tr>
+			<th>Test</th>
+			<th>Result</th>
+			<th>Comment</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr>
+			<td>Ping</td>
+			<td><img src="/images/{{integrationPoint.testPing}}.bmp" /></td>
+			<td>{{integrationPoint.testPingComment}}</td>
+		</tr>
+		<tr>
+			<td>JSON-LD</td>
+			<td><img src="/images/{{integrationPoint.testJSONLD}}.bmp" /></td>
+			<td>{{integrationPoint.testJSONLDComment}}</td>
+		</tr>
+		<tr>
+			<td>RFSCatalogue</td>
+			<td><img src="/images/{{integrationPoint.testRFSCatalogue}}.bmp" /></td>
+			<td>{{integrationPoint.testRFSCatalogueComment}}</td>
+		</tr>
+		</tbody>
+	</table>
+
+
+
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+</div>

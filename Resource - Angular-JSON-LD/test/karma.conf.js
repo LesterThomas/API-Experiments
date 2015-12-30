@@ -36,6 +36,7 @@ module.exports = function(config) {
       'bower_components/es6-promise/promise.js',
       'bower_components/jsonld/js/jsonld.js',
       'bower_components/angular-jsonld/dist/angular-jsonld.js',
+      'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",

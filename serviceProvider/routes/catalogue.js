@@ -24,6 +24,12 @@ router.get('/', function(httprequest, httpresponse) {
 		  		integrationPointArray.push(integrationItem);
 		  	}
 		  	numberOfEndpoints=integrationPointArray.length;
+
+			if (numberOfEndpoints==0) { //no data to send
+					console.log('Sending empty response', catalogueArray)
+					httpresponse.send(catalogueArray);
+				}
+
 		  	for(i=0;i<numberOfEndpoints;i++){
 
 

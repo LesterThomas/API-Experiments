@@ -4,6 +4,8 @@ var jsonld_request = require('jsonld-request');
 var jsonld = require('jsonld');
 var request = require('request');
 
+
+
 /* GET integrationPoints from database */
 router.get('/', function(httprequest, httpresponse) {
 

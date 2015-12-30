@@ -18,7 +18,7 @@ angular.module('webserverApp')
 			};
 
 	/* Confiigure the API baseUrl */
-	JsonldRest.setBaseUrl('http://lesterthomas.ddns.net:3000/api/');
+	JsonldRest.setBaseUrl('http://lesterthomas.ddns.net:3001/api/');
 
 	console.log('Set baseURL',JsonldRest);
 
@@ -47,6 +47,10 @@ angular.module('webserverApp')
 		});
 
 		rfscatalogue.all('').get().then(function(res){
+			if (!(res.list instanceof Array)) {
+				//special case where only one record is returned
+				res.list=[res.list];
+			}
 			console.log('All res',res.list);
 			$scope.rfsCollection=[];
 			for (var i=0;i<res.list.length;i++){
