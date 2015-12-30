@@ -98,5 +98,17 @@ body {
     border-bottom: 0;
   }
 }
+/* added to make footer stick to the bottom */
+/* line 93, ../../app/styles/main.scss */
+html, body {
+  height: 100%;
+}
+
+/* line 97, ../../app/styles/main.scss */
+.modal-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
 
 /*# sourceMappingURL=main.css.map */

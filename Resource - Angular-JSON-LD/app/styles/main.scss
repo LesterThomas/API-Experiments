@@ -87,3 +87,15 @@ body {
     border-bottom: 0;
   }
 }
+
+
+/* added to make footer stick to the bottom */
+html, body {
+  height: 100%;
+}
+
+.modal-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
