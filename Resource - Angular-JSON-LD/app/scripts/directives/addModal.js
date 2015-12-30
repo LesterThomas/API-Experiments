@@ -27,7 +27,10 @@ angular.module('webserverApp').controller('AddModalInstanceCtrl', function ($sco
            }).
       success(function(data, status, headers, config) {
           console.log('Database add success', status, data)
-          $uibModalInstance.close();
+          //get the id from the data
+          var idArray=data.id.split('/');
+          var id=idArray[idArray.length-1];
+          $uibModalInstance.close('IntegrationPoint:' + id);
       }).
       error(function(data, status, headers, config) {
         // log error

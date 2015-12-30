@@ -10,17 +10,24 @@
 angular.module('webserverApp')
   .controller('AdminCtrl', function ($scope, $uibModal, $http) {
 
-  	$scope.getIntegrationPoints=function() {
+  	$scope.getIntegrationPoints=function(inId) {
 		$http.get('http://localhost:3002/api/integrationPoint').
 		    success(function(data, status, headers, config) {
 
 		      	$scope.integrationCollection = data;
 
 		      	$scope.integrationCollection.forEach(function(integrationPoint) {
-				    integrationPoint.testPing="a";
-		      		integrationPoint.testJSONLD="a";
-		      		integrationPoint.testRFSCatalogue="a";
+		      		if (!integrationPoint.testPing) {
+					    integrationPoint.testPing="a";
+			      		integrationPoint.testJSONLD="a";
+			      		integrationPoint.testRFSCatalogue="a";
+			      	}
 				});
+
+		      	if (inId) {  //open test Modal window if id is set
+		      		$scope.open('lg',inId);
+		      	}
+
 		      
 		    }).
 		    error(function(data, status, headers, config) {
@@ -71,9 +78,10 @@ angular.module('webserverApp')
 	      resolve: {}
     });
 
-    modalInstance.result.then(function () {
+    modalInstance.result.then(function (inId) {
       		console.log('Add Modal dismissed at: ' + new Date());
-      		$scope.getIntegrationPoints();  //refresh the list
+      		
+      		$scope.getIntegrationPoints(inId);  //refresh the list
     	});
   	};
 

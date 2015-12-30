@@ -81,6 +81,27 @@ router.post('/', function(req, res) {
 });
 
 /***************************************************************************************
+        Update RFSCatalogue item by doing a PUT. Get the revision from the existing item first 
+***************************************************************************************/
+router.put('/:rfsId', function(req, res) {
+	var integrationPointItem=req.body;
+	var dbUrl='http://localhost:5984/serviceprovider/' + integrationPointItem._id + '?rev=' + integrationPointItem._rev;
+		  	
+	request({
+	   	method: 'PUT',
+	   	uri: dbUrl,
+	   	multipart: [{
+	       'content-type':'application/json',
+	       body: JSON.stringify(integrationPointItem) 
+		   }]
+		}, 
+		function (error, response, body) {
+			console.log('Database PUT response', body); 
+		});
+		res.send(body); 
+});
+
+/***************************************************************************************
         Delete RFSCatalogue item by doing a DELETE. Get the revision from the existing item first 
 ***************************************************************************************/
 router.delete('/:rfsId', function(req, res) {

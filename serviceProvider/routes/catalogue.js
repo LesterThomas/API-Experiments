@@ -30,8 +30,16 @@ router.get('/', function(httprequest, httpresponse) {
 					httpresponse.send(catalogueArray);
 				}
 
-		  	for(i=0;i<numberOfEndpoints;i++){
+		  	for(i=0;i<integrationPointArray.length;i++){
 
+		  		//test if the integration point has passed tests
+		  		if (integrationPointArray[i].testRFSCatalogue!='g') {
+  					numberOfEndpoints--;
+					if (numberOfEndpoints==0) { //we have received data from last endpoint
+						console.log('Sending array of endpoints', catalogueArray)
+						httpresponse.send(catalogueArray);
+					}
+				} else {
 
 			// read the catalogue from URL
 			console.log('Loading catalogue',integrationPointArray[i].EntryPoint)
@@ -68,21 +76,11 @@ router.get('/', function(httprequest, httpresponse) {
 								httpresponse.send(catalogueArray);
 							}
 						}
-
 					});
-
-					/*
-					catalogueArray.push(RFSCatalogueEP);
-					numberOfEndpoints--;
-					if (numberOfEndpoints==0) { //we have received data from last endpoint
-						console.log('Sending array of endpoints', catalogueArray)
-						httpresponse.send(catalogueArray);
-					}*/
 				}
 			});
 				
-
-
+		  	}
 		  	}
 
 
@@ -90,13 +88,6 @@ router.get('/', function(httprequest, httpresponse) {
 			httpresponse.send('{"error":"'+error+'", "dbResponseStatusCode":"'+response.statusCode+'"');
 		}
 	});	
-
-
-	
-
-
-
-
   
 });
 
