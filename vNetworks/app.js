@@ -48,7 +48,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use('/', routes);
-app.use('/api', api);
+app.use('/api/v1', api);
 
 
 

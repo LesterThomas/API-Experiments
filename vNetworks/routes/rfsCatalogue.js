@@ -33,7 +33,7 @@ router.get('/', function(req, res) {
 		  		catalogueItem['@type']='http://schema.org/RFSCatalogue';
 		  		delete catalogueItem._id;
 		  		delete catalogueItem._rev;
-		  		delete catalogueItem.description;
+		  		//delete catalogueItem.description;
 		  		rfsCatalogueArray.push(catalogueItem);
 		  	}
 

@@ -6,9 +6,12 @@ angular.module('webserverApp').controller('ModalInstanceCtrl', function ($scope,
 
   $scope.integrationPoint = integrationPoint;
   $scope.testCount=0;
+  $scope.integrationPoint.testPingComment='Test starting';
+  $scope.integrationPoint.testJSONLDComment='Test starting';
+  $scope.integrationPoint.testRFSCatalogueComment='Test starting';
 
   $scope.ok = function () {
-    $uibModalInstance.close();
+    $uibModalInstance.dismiss('ok');
   };
 
   $scope.cancel = function () {

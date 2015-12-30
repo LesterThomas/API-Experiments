@@ -8,62 +8,32 @@
  * Controller of the webserverApp
  */
 angular.module('webserverApp')
-  .controller('CatalogueCtrl', ['$scope','$http','JsonldRest', function ($scope,$http,JsonldRest) {
+  .controller('CatalogueCtrl', ['$scope','$http', function ($scope,$http,JsonldRest) {
 
   	console.log('Started controller'); 
-  	$scope.getRFSItem=function(rfsItem){
-				console.log('RFS Item',rfsItem);
-				console.log('RFS Item Description',rfsItem.description);
-				$scope.rfsCollection.push(rfsItem);
-			};
+  	$scope.rfsCollection=[];
 
-	/* Confiigure the API baseUrl */
-	JsonldRest.setBaseUrl('http://lesterthomas.ddns.net:3001/api/');
+  	$http.get('http://localhost:3002/api/catalogue').
+		    success(function(data, status, headers, config) {
+		    	data.forEach( function(dataItem){
+		    		var catalogueItem={};
+		    		//map expanded JSON-LD to internal representation
+		    		catalogueItem.name=dataItem['http://schema.org/name'][0]['@value'];
+		    		catalogueItem.description=dataItem['http://schema.org/description'][0]['@value'];
+		    		catalogueItem['@id']=dataItem['@id'];
+		    		$scope.rfsCollection.push(catalogueItem);
+		    	})		    	
 
-	console.log('Set baseURL',JsonldRest);
+		      	console.log('Catalogue get success',data,status);	      
+		    }).
+		    error(function(data, status, headers, config) {
+		      // log error
+		      	console.log('Catalogue get error',data, status, headers, config);
+		    });
+
+	
 
  
 
-	//*****************************************************************************************************************
-	// 				TO-DO this should use the API entry point to find the RFSCatalogue URL String
-	//*****************************************************************************************************************
-	var apiEntryPoint=JsonldRest.collection(''); 
-	apiEntryPoint.one('').get().then(function(res){
-		console.log('EntryPoint item', res);
-		
-
-		/* A handler to a server collection of RFSCatalogue items with a local context interpretation */
-		var rfscatalogue = res[res['@type']+'/RFSCatalogue']; //get the RFSCatalogue entry point relative to this entry point
-		//var rfscatalogue = JsonldRest.collection('RFSCatalogue');
-		console.log('RFSCatalogue collection', rfscatalogue);
-	    $scope.name='Not set';
-	 
-	    /* We retrieve the person http://example.org/person/1 */
-	    
-		rfscatalogue.one('1').get().then(function(res){
-			console.log('RFSCatalogue item', res);
-			console.log('result',res);
-			$scope.name=res.name;
-		});
-
-		rfscatalogue.all('').get().then(function(res){
-			if (!(res.list instanceof Array)) {
-				//special case where only one record is returned
-				res.list=[res.list];
-			}
-			console.log('All res',res.list);
-			$scope.rfsCollection=[];
-			for (var i=0;i<res.list.length;i++){
-				console.log('All res - getting item '+i,res.list[i]);
-				res.list[i].get().then($scope.getRFSItem);
-			}
-			
-		});
-
-	});
-	/*$http.get('http://localhost:9000/person.json').success(function(res){
-  	console.log('Hello ',res.name);
-  	$scope.name=res.name;
-	});*/
 
 }]);

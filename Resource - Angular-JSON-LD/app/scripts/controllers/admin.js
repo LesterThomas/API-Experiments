@@ -13,6 +13,7 @@ angular.module('webserverApp')
   	$scope.getIntegrationPoints=function() {
 		$http.get('http://localhost:3002/api/integrationPoint').
 		    success(function(data, status, headers, config) {
+
 		      	$scope.integrationCollection = data;
 
 		      	$scope.integrationCollection.forEach(function(integrationPoint) {

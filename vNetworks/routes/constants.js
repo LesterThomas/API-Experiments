@@ -1,5 +1,5 @@
 var constants={};
-constants.API_ENTRY_POINT='http://lesterthomas.ddns.net:3001/api';
+constants.API_ENTRY_POINT='http://lesterthomas.ddns.net:3001/api/v1';
 constants.VOCAB_ROUTE='/vocab';
 constants.API_ENTRY_POINT_VOCAB=constants.API_ENTRY_POINT+constants.VOCAB_ROUTE;
 constants.CONTEXT_ROUTE='/contexts';
