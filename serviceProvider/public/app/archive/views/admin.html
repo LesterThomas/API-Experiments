@@ -1,0 +1,43 @@
+<h4>Administer integration points</h4>
+<div ng-if="integrationCollection.length>0">
+<p>Click on a row in the table below to run the integration tests or to delete the integration point.</p>
+<br />
+
+<table class="table table-striped table-hover">
+	<thead>
+	<tr>
+		<th>Id</th>
+		<th>API Entry Point</th>
+		<th><small>HTTP GET </small></th>
+		<th><small>JSON-LD</small></th>
+		<th><small>RFS Catalogue</small></th>
+
+
+	</tr>
+	</thead>
+	<tbody>
+	<tr ng-repeat="row in integrationCollection" ng-click="open('lg','{{row._id}}')" >
+		<td>{{row._id}}</td>
+		<td>{{row.EntryPoint}}</td>
+		<td><img src="/images/{{row.testPing}}.bmp" /></td>
+		<td><img src="/images/{{row.testJSONLD}}.bmp" /></td>
+		<td><img src="/images/{{row.testRFSCatalogue}}.bmp" /></td>
+</td>
+	</tr>
+	</tbody>
+</table>
+
+<br /><br />
+</div>
+<br /><br />
+<p>Add integration point</p>
+<button class="btn btn-primary" type="button" ng-click="add()">Add</button>
+
+
+<br /><br /><br /><br /><br />
+
+
+   
+
+    
+

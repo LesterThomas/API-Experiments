@@ -1,0 +1,8 @@
+{
+  "@context": {},
+  "@type": "http://schema.org/Person",
+  "http://schema.org/name": "Peter Pan",
+  "http://schema.org/jobTitle": "Professor",
+  "http://schema.org/telephone": "(425) 123-4567",
+  "http://schema.org/url": "http://www.janedoe.com"
+}

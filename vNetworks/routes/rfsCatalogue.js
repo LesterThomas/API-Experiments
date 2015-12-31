@@ -29,7 +29,7 @@ router.get('/', function(req, res) {
 		  	
 		  	for(var i=0; i<rfsCatalogue.rows.length; i++) {
 		  		var catalogueItem=rfsCatalogue.rows[i].doc;
-		  		catalogueItem['@id']=constants.API_ENTRY_POINT_RFSCATALOGUE + '/' + catalogueItem._id.split(':')[1];
+		  		catalogueItem['@id']=constants.API_ENTRY_POINT_RFSCATALOGUE + '/id=' + catalogueItem._id.split(':')[1];
 		  		catalogueItem['@type']='http://schema.org/RFSCatalogue';
 		  		delete catalogueItem._id;
 		  		delete catalogueItem._rev;
@@ -41,11 +41,11 @@ router.get('/', function(req, res) {
 				hydra: "http://www.w3.org/ns/hydra/core#",
 				vocab: constants.API_ENTRY_POINT_VOCAB + '#',
 				RFSCatalogueCollection: "vocab:RFSCatalogueCollection",
-				members: "http://www.w3.org/ns/hydra/core#member"
+				catalogue: "http://www.w3.org/ns/hydra/core#member"
 				}],
 				"@type": "RFSCatalogueCollection",
 	  			"@id": constants.API_ENTRY_POINT_RFSCATALOGUE,
-	  			members:rfsCatalogueArray
+	  			catalogue:rfsCatalogueArray
 			};
 			res.contentType("application/ld+json");
 			res.setHeader("link",'<'+constants.API_ENTRY_POINT_VOCAB+'>; rel="http://www.w3.org/ns/hydra/core#apiDocumentation"');
@@ -121,7 +121,7 @@ router.post('/', function(req, res) {
 /***************************************************************************************
         Get RFSCatalogue item by id. 
 ***************************************************************************************/
-router.get('/:rfsId', function(req, res) {
+router.get('/id=:rfsId', function(req, res) {
 	res.contentType("application/ld+json");
 	res.setHeader("link",'<'+constants.API_ENTRY_POINT_VOCAB+'>; rel="http://www.w3.org/ns/hydra/core#apiDocumentation"');
 
@@ -149,7 +149,7 @@ router.get('/:rfsId', function(req, res) {
 /***************************************************************************************
         Delete RFSCatalogue item by doing a DELETE. Get the revision from the existing item first 
 ***************************************************************************************/
-router.delete('/:rfsId', function(req, res) {
+router.delete('/id=:rfsId', function(req, res) {
 
 	//res.contentType("application/ld+json");
 	//res.setHeader("link",'<'+constants.API_ENTRY_POINT_VOCAB+'>; rel="http://www.w3.org/ns/hydra/core#apiDocumentation"');
@@ -180,7 +180,7 @@ router.delete('/:rfsId', function(req, res) {
 /***************************************************************************************
         Update a RFSCatalogue item by doing a PUT. Get the revision from the existing item first 
 ***************************************************************************************/
-router.put('/:rfsId', function(req, res) {
+router.put('/id=:rfsId', function(req, res) {
 	console.log("PUT to "+constants.API_ENTRY_POINT_RFSCATALOGUE + "/" + req.params.rfsId,req.body);
     var updatedDocument=req.body;
     delete updatedDocument['@context'];

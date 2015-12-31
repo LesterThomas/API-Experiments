@@ -10,7 +10,7 @@ router.use('/integrationPoint', integrationPoints);
 
 router.get('/', function(httprequest, httpresponse) {
 	httpresponse.contentType("application/json");
-	var objectResp={ catalogue:"http://lesterthomas.ddns.net:3002/api/catalogue", integrationPoints:"http://lesterthomas.ddns.net:3002/api/integrationPoint"};
+	var objectResp={ catalogue:"http://serviceprovider.com:3002/api/catalogue", integrationPoints:"http://serviceprovider.com:3002/api/integrationPoint"};
 	httpresponse.send(JSON.stringify(objectResp));
 });
 

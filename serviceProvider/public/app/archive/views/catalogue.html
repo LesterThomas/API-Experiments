@@ -1,0 +1,27 @@
+
+
+<p>Resource Facing Service Catalogue</p>
+<br />
+
+<table class="table table-striped">
+	<thead>
+	<tr>
+		<th>Name</th>
+		<th>Description</th>
+		<th>Id</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr ng-repeat="row in rfsCollection">
+		<td>{{row.name}}</td>
+		<td>{{row.description}}</td>
+		<td>{{row['@id']}}</td>
+	</tr>
+	</tbody>
+</table>
+
+<br /><br /><br /><br /><br />
+
+
+
+

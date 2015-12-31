@@ -1,0 +1,7 @@
+{
+  "@context": "http://schema.org/", 
+  "@type": "ResourceFacingServiceCatalogue",
+  "@id" : "http://localhost:9000/api/ResourceFacingService/4",
+  "name": "Firewall",
+  "description": "Acme Firewall"
+}

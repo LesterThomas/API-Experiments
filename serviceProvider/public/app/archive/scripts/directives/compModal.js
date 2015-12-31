@@ -6,7 +6,7 @@ return {
     replace: true,
     transclude: true,
     scope: true,
-    templateUrl: 'app/scripts/directives/compModal.html',
+    templateUrl: '/scripts/directives/compModal.html',
     controller: function($scope, $element, $location){
         $scope.isActive = function(viewLocation){
 
