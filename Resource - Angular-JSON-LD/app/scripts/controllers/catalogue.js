@@ -12,19 +12,25 @@ angular.module('webserverApp')
 
   	console.log('Started controller'); 
   	$scope.rfsCollection=[];
-
+	$scope.status='Loading';
   	$http.get('http://localhost:3002/api/catalogue').
 		    success(function(data, status, headers, config) {
-		    	data.forEach( function(dataItem){
-		    		var catalogueItem={};
-		    		//map expanded JSON-LD to internal representation
-		    		catalogueItem.name=dataItem['http://schema.org/name'][0]['@value'];
-		    		catalogueItem.description=dataItem['http://schema.org/description'][0]['@value'];
-		    		catalogueItem['@id']=dataItem['@id'];
-		    		$scope.rfsCollection.push(catalogueItem);
-		    	})		    	
+				if (data.constructor === Array) {
+					$scope.status='Loaded';
+					data.forEach( function(dataItem){
+						var catalogueItem={};
+						//map expanded JSON-LD to internal representation
+						catalogueItem.name=dataItem['http://schema.org/name'][0]['@value'];
+						catalogueItem.description=dataItem['http://schema.org/description'][0]['@value'];
+						catalogueItem['@id']=dataItem['@id'];
+						$scope.rfsCollection.push(catalogueItem);
+					})		    	
 
-		      	console.log('Catalogue get success',data,status);	      
+					console.log('Catalogue get success',data,status);	
+				} else {
+					console.log('Catalogue get error - no Array returned',data,status);
+					$scope.status='Error'; 
+				}
 		    }).
 		    error(function(data, status, headers, config) {
 		      // log error

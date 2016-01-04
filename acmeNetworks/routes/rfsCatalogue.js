@@ -37,7 +37,7 @@ router.get('/', function(req, res) {
 		  		rfsCatalogueArray.push(catalogueItem);
 		  	}
 
-		  	var outputJsonLd={ "@context":["http://schema.org/",{
+		  	var outputJsonLd={ "@context":["http://schema.org",{
 				hydra: "http://www.w3.org/ns/hydra/core#",
 				vocab: constants.API_ENTRY_POINT_VOCAB + '#',
 				RFSCatalogueCollection: "vocab:RFSCatalogueCollection",

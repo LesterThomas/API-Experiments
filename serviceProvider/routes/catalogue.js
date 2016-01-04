@@ -41,12 +41,16 @@ router.get('/', function(httprequest, httpresponse) {
 					}
 				} else {
 
+				
+
+				
 			// read the catalogue from URL
 			console.log('Loading catalogue',integrationPointArray[i].EntryPoint)
 			jsonld.expand(integrationPointArray[i].EntryPoint, function(err, expanded) {
 				if (err) {
 					console.log('Error',err);
 					httpresponse.send(err);
+					i=integrationPointArray.length; //don't process any more
 				} else {
 
 					console.log('Loaded expanded API End Point',expanded);
@@ -59,11 +63,15 @@ router.get('/', function(httprequest, httpresponse) {
 					//get the API endpoint of the RFSCatalogue
 					var RFSCatalogueEP=expanded[0][RFSCatalogueEPType][0]['@id'];
 					console.log('Catalogue End Point is',RFSCatalogueEP);
+					
+					
 
 					//call HTTP GET on the endpoint to get all the catalogue items
 					jsonld.expand(RFSCatalogueEP, function (error, expandedRFSCatalogueEP) {
 						if (error) {
+							console.log('Error expanding RFSCatalogueEP', error);
 							httpresponse.send(error);
+							i=integrationPointArray.length; //don't process any more
 						} else {
 							console.log('Expanded Catalogue',expandedRFSCatalogueEP);
 							var membersArray=expandedRFSCatalogueEP[0]['http://www.w3.org/ns/hydra/core#member'];

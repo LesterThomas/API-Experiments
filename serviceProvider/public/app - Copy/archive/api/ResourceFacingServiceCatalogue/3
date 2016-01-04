@@ -1,0 +1,10 @@
+{
+  "@context": {
+      "schema": "http://schema.org/"
+  },
+  "@type": "schema:Person",
+  "schema:name": "John Thomas",
+  "schema:jobTitle": "Professor",
+  "schema:telephone": "(425) 123-4567",
+  "schema:url": "http://www.janedoe.com"
+}
