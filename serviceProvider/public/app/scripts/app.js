@@ -33,17 +33,17 @@ angular
   })
   .config(function ($routeProvider) {
     $routeProvider
-      .when('/', {
+      .when('app/', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl',
         controllerAs: 'main'
       })
-      .when('/catalogue', {
+      .when('app/catalogue', {
         templateUrl: 'views/catalogue.html',
         controller: 'CatalogueCtrl',
         controllerAs: 'catalogue'
       })
-      .when('/admin', {
+      .when('app/admin', {
         templateUrl: 'views/admin.html',
         controller: 'AdminCtrl',
         controllerAs: 'admin'
