@@ -44,7 +44,7 @@ angular.module('webserverApp')
 
     var modalInstance = $uibModal.open({
 	      animation: $scope.animationsEnabled,
-	      templateUrl: '/scripts/directives/modalWindow.html',
+	      templateUrl: '/app/scripts/directives/modalWindow.html',
 	      controller: 'ModalInstanceCtrl',
 	      size: size,
 	      resolve: {
@@ -72,7 +72,7 @@ angular.module('webserverApp')
 
     var modalInstance = $uibModal.open({
 	      animation: $scope.animationsEnabled,
-	      templateUrl: '/scripts/directives/addModal.html',
+	      templateUrl: '/app/scripts/directives/addModal.html',
 	      controller: 'AddModalInstanceCtrl',
 	      size: size,
 	      resolve: {}

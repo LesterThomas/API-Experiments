@@ -33,7 +33,7 @@
 			</tr>
 			</thead>
 			<tbody>
-			<tr ng-repeat="row in rfsCollection">
+			<tr ng-repeat="row in rfsCollection"  ng-click="open('lg','{{row['@id']}}')">
 				<td>{{row.name}}</td>
 				<td>{{row.description}}</td>
 				<td>{{row['@id']}}</td>
