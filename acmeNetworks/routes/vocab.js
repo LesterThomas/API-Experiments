@@ -142,6 +142,102 @@ router.get('/', function(req, res) {
 					"required": true,
 					"readonly": false,
 					"writeonly": false
+					},
+					//**************************************************************************************************************
+					//  Define the link to the Features Collection *****************************************************************
+					//**************************************************************************************************************
+					{ 
+						"property": {
+							"@id": "vocab:EntryPoint/RFSCatalogue/Features", 
+							"@type": "hydra:Link",
+							"label": "Features",
+							"description": "The Features collection",
+							"domain": "vocab:EntryPoint/RFSCatalogue",
+							"range": "vocab:FeaturesCollection",
+							"supportedOperation": [
+								{
+								"@id": "_:Features_collection_retrieve",
+								"@type": "hydra:Operation",
+								"method": "GET",
+								"label": "Retrieves all Features for this RFSCatalogue item",
+								"description": null,
+								"expects": null,
+								"returns": "vocab:FeaturesCollection",
+								"statusCodes": []
+								}
+							]
+						},
+					"hydra:title": "Features",
+					"hydra:description": "The Features collection",
+					"required": null,
+					"readonly": true,
+					"writeonly": false
+				}
+
+
+
+
+				]
+			},
+			{
+				"@id": "http://schema.org/PropertyValue",
+				"@type": "hydra:Class",
+				"hydra:title": "Feature",
+				"hydra:description": null,
+				"supportedOperation": [
+					{
+					"@id": "_:Feature_retrieve",
+					"@type": "hydra:Operation",
+					"method": "GET",
+					"label": "Retrieves a Feature",
+					"description": null,
+					"expects": null,
+					"returns": "http://schema.org/PropertyValue",
+					"statusCodes": []
+					},
+					{
+					"@id": "_:Feature_delete",
+					"@type": "http://schema.org/DeleteAction",
+					"method": "DELETE",
+					"label": "Deletes a Feature",
+					"description": null,
+					"expects": null,
+					"returns": "http://www.w3.org/2002/07/owl#Nothing",
+					"statusCodes": []
+					},
+					{
+					"@id": "_:Feature_replace",
+					"@type": "http://schema.org/UpdateAction",
+					"method": "PUT",
+					"label": "Replaces an existing Feature",
+					"description": null,
+					"expects": "http://schema.org/PropertyValue",
+					"returns": "http://schema.org/PropertyValue",
+					"statusCodes": [
+						{
+						"code": 404,
+						"description": "If the Feature entity wasn't found."
+						}
+					]
+					}
+
+				],
+				"supportedProperty": [
+					{
+					"property": "http://schema.org/name",
+					"hydra:title": "name",
+					"hydra:description": "The Feature's name",
+					"required": true,
+					"readonly": false,
+					"writeonly": false
+					},
+					{
+					"property": "http://schema.org/description",
+					"hydra:title": "description",
+					"hydra:description": "Description of the Feature",
+					"required": true,
+					"readonly": false,
+					"writeonly": false
 					}
 				]
 			},
@@ -166,25 +262,25 @@ router.get('/', function(req, res) {
 				"supportedProperty": [
 					{
 						"property": {
-						"@id": "vocab:EntryPoint/RFSCatalogue",
-						"@type": "hydra:Link",
-						"label": "RFSCatalogue",
-						"description": "The Resource Facing Service Catalogue collection",
-						"domain": "vocab:EntryPoint",
-						"range": "vocab:RFSCatalogueCollection",
-						"supportedOperation": [
-							{
-							"@id": "_:RFSCatalogue_collection_retrieve",
-							"@type": "hydra:Operation",
-							"method": "GET",
-							"label": "Retrieves all Resource Facing Service Catalogue entities",
-							"description": null,
-							"expects": null,
-							"returns": "vocab:RFSCatalogueCollection",
-							"statusCodes": []
-							}
-						]
-					},
+							"@id": "vocab:EntryPoint/RFSCatalogue",
+							"@type": "hydra:Link",
+							"label": "RFSCatalogue",
+							"description": "The Resource Facing Service Catalogue collection",
+							"domain": "vocab:EntryPoint",
+							"range": "vocab:RFSCatalogueCollection",
+							"supportedOperation": [
+								{
+								"@id": "_:RFSCatalogue_collection_retrieve",
+								"@type": "hydra:Operation",
+								"method": "GET",
+								"label": "Retrieves all Resource Facing Service Catalogue entities",
+								"description": null,
+								"expects": null,
+								"returns": "vocab:RFSCatalogueCollection",
+								"statusCodes": []
+								}
+							]
+						},
 					"hydra:title": "RFSCatalogue",
 					"hydra:description": "The Resource Facing Service Catalogue collection",
 					"required": null,
@@ -231,6 +327,53 @@ router.get('/', function(req, res) {
 					"property": "http://www.w3.org/ns/hydra/core#member",
 					"hydra:title": "members",
 					"hydra:description": "The Resource Facing Service Catalogue items",
+					"required": null,
+					"readonly": false,
+					"writeonly": false
+				}
+			]
+		},
+		//**************************************************************************************************************
+		//  Define the Features Collection *****************************************************************
+		//**************************************************************************************************************
+		{
+			"@id": "vocab:FeaturesCollection",
+			"@type": "hydra:Class",
+			"subClassOf": "http://www.w3.org/ns/hydra/core#Collection",
+			"label": "FeaturesCollection",
+			"description": "A collection of Features",
+			"supportedOperation": [
+				{
+					"@id": "_:Features_create",
+					"@type": "http://schema.org/AddAction",
+					"method": "POST",
+					"label": "Creates a new Feature",
+					"description": null,
+					"expects": "http://schema.org/PropertyValue",
+					"returns": "http://schema.org/PropertyValue",
+					"statusCodes": [
+						{
+							"code": 201,
+							"description": "If the Feature was created successfully."
+						}
+					]
+				},
+				{
+					"@id": "_:Features_collection_retrieve",
+					"@type": "hydra:Operation",
+					"method": "GET",
+					"label": "Retrieves all Features for this RFSCatalogue item",
+					"description": null,
+					"expects": null,
+					"returns": "vocab:FeaturesCollection",
+					"statusCodes": []
+				}
+				],
+			"supportedProperty": [
+				{
+					"property": "http://www.w3.org/ns/hydra/core#member",
+					"hydra:title": "members",
+					"hydra:description": "The Features",
 					"required": null,
 					"readonly": false,
 					"writeonly": false

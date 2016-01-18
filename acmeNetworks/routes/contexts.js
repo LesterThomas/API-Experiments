@@ -41,7 +41,12 @@ router.get('/RFSCatalogue.jsonld', function(req, res) {
 			"vocab": constants.API_ENTRY_POINT_VOCAB + "#",
 			"RFSCatalogue": "http://schema.org/RFSCatalogue",
 			"name": "http://schema.org/name",
-			"description": "http://schema.org/description"
+			"description": "http://schema.org/description",
+			"features": {
+				"@id": "vocab:EntryPoint/RFSCatalogue/Features",
+				"@type": "@id"
+			}
+
 		}
 	};
 	res.contentType("application/ld+json");
@@ -50,6 +55,24 @@ router.get('/RFSCatalogue.jsonld', function(req, res) {
 	console.log('GET /api/contexts/RFSCatalogue.jsonld complete');
 });
 
+
+router.get('/Feature.jsonld', function(req, res) {
+	console.log('GET /api/contexts/Feature.jsonld');
+	
+	var context={
+		"@context": {
+			"hydra": "http://www.w3.org/ns/hydra/core#",
+			"vocab": constants.API_ENTRY_POINT_VOCAB + "#",
+			"Feature": "http://schema.org/PropertyValue",
+			"name": "http://schema.org/name",
+			"description": "http://schema.org/description"
+		}
+	};
+	res.contentType("application/ld+json");
+	res.setHeader("link",'<'+constants.API_ENTRY_POINT_VOCAB+'>; rel="http://www.w3.org/ns/hydra/core#apiDocumentation"');
+	res.send(JSON.stringify(context));
+	console.log('GET /api/contexts/Feature.jsonld complete');
+});
 
 
 
