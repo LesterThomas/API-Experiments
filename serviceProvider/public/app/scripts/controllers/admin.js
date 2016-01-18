@@ -76,7 +76,7 @@ angular.module('webserverApp')
 	      controller: 'AddModalInstanceCtrl',
 	      size: size,
 	      resolve: {}
-    });
+    }); 
 
     modalInstance.result.then(function (inId) {
       		console.log('Add Modal dismissed at: ' + new Date());

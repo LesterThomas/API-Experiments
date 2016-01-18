@@ -5,7 +5,7 @@ var request = require('request');
 
 
 
-/* GET users listing. */
+/* GET Catalogue listing. */
 router.get('/', function(httprequest, httpresponse) {
 
 	//get all the catalogues and build a single array of catalogue data
@@ -81,6 +81,9 @@ router.get('/', function(httprequest, httpresponse) {
 							numberOfEndpoints--;
 							if (numberOfEndpoints==0) { //we have received data from last endpoint
 								console.log('Sending array of endpoints', catalogueArray)
+								
+								
+								
 								httpresponse.send(catalogueArray);
 							}
 						}
@@ -98,5 +101,25 @@ router.get('/', function(httprequest, httpresponse) {
 	});	
   
 });
+
+router.get('/:id', function(httprequest, httpresponse) {
+	console.log('Id', httprequest.params.id);
+	
+	
+	
+	jsonld.expand(httprequest.params.id, function(err, expanded) {
+		if (err) {
+			console.log('Error',err);
+			httpresponse.send(err);
+		} else {
+			console.log('Loaded expanded API End Point',expanded);
+			
+			httpresponse.send(expanded);
+		}
+	});
+					
+
+});
+ 
 
 module.exports = router;

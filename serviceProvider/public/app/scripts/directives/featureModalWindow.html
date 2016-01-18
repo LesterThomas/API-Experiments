@@ -2,31 +2,29 @@
 <div class="modal-header">
     <h3 class="modal-title">{{RFSCatalogue.name}} </h3>
 </div>
-<div class="modal-body" style="height:300px;">
-	<table class="table table-striped">
-		<tr>
-			<th>Name</th>
-			<td>{{ RFSCatalogue.name}}</td>
-		</tr>
-		<tr>
-			<th>Id</th>
-			<td>{{ RFSCatalogue['@id']}}</td>
-		</tr>
-		<tr>
-			<th>Description</th>
-			<td>{{ RFSCatalogue.description}}</td>
-		</tr>
-	</table>
+<div class="modal-body" style="height:{{200+RFSCatalogue.featureArray.length*50}}px;">
+	
+			
+	<b>Description</b>
+	<span>{{ RFSCatalogue.description}}</span>
 		
 
-	<h4>Features</h4>	
-	
+	<br /><br />
+	<table class="table table-striped" ng-if="RFSCatalogue.featureArray.length>0">
+		<tr>
+			<th colspan="2">Feature </th>
+		</tr>
+		<tr ng-repeat="feature in RFSCatalogue.featureArray">
+			<td>{{ feature.name}}</td>
+			<td>{{ feature.description}}</td>
+		</tr>
+	</table>
 	
 
 	
 	
 	
-
+ 
 
 
 

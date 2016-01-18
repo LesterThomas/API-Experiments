@@ -6,7 +6,7 @@
  * @description
  * # CatalogueCtrl
  * Controller of the webserverApp
- */
+ */ 
 angular.module('webserverApp')
   .controller('CatalogueCtrl', ['$scope','$uibModal', '$http', function ($scope,$uibModal,$http,JsonldRest) {
 
@@ -22,6 +22,7 @@ angular.module('webserverApp')
 						//map expanded JSON-LD to internal representation
 						catalogueItem.name=dataItem['http://schema.org/name'][0]['@value'];
 						catalogueItem.description=dataItem['http://schema.org/description'][0]['@value'];
+						catalogueItem.features=dataItem['http://schema.org/additionalProperty'][0]['@id'];
 						catalogueItem['@id']=dataItem['@id'];
 						$scope.rfsCollection.push(catalogueItem);
 					})		    	

@@ -7,4 +7,4 @@ constants.API_ENTRY_POINT_CONTEXT=constants.API_ENTRY_POINT+constants.CONTEXT_RO
 constants.RFSCATALOGUE_ROUTE='/RFSCatalogue';
 constants.API_ENTRY_POINT_RFSCATALOGUE=constants.API_ENTRY_POINT+constants.RFSCATALOGUE_ROUTE;
 constants.FEATURES_ROUTE='/Features';
-module.exports = constants;
+module.exports = constants; 
