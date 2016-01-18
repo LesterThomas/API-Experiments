@@ -43,7 +43,7 @@ router.get('/RFSCatalogue.jsonld', function(req, res) {
 			"name": "http://schema.org/name",
 			"description": "http://schema.org/description",
 			"features": {
-				"@id": "http://schema.org/additionalProperty",
+				"@id": "vocab:EntryPoint/RFSCatalogue/Features",
 				"@type": "@id"
 			}
 
