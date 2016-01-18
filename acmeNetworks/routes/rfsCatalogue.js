@@ -32,9 +32,13 @@ router.get('/', function(req, res) {
 		  		if (catalogueItem._id.split(':').length==2) {  //test to check that this is not a feature
 			  		catalogueItem['@id']=constants.API_ENTRY_POINT_RFSCATALOGUE + '/' + catalogueItem._id.split(':')[1];
 			  		catalogueItem['@type']='http://schema.org/RFSCatalogue';
+			  		catalogueItem['features']=constants.API_ENTRY_POINT_RFSCATALOGUE + '/' + catalogueItem._id.split(':')[1] + constants.FEATURES_ROUTE;
 			  		delete catalogueItem._id;
 			  		delete catalogueItem._rev;
+			  		//delete catalogueItem.name;
 			  		//delete catalogueItem.description;
+			  		//delete catalogueItem.features;
+			  		//delete catalogueItem.description; 
 			  		rfsCatalogueArray.push(catalogueItem);
 			  	}
 		  	}
@@ -43,7 +47,11 @@ router.get('/', function(req, res) {
 				hydra: "http://www.w3.org/ns/hydra/core#",
 				vocab: constants.API_ENTRY_POINT_VOCAB + '#',
 				RFSCatalogueCollection: "vocab:RFSCatalogueCollection",
-				members: "http://www.w3.org/ns/hydra/core#member"
+				members: "http://www.w3.org/ns/hydra/core#member",
+				features: {
+					"@id": "http://schema.org/additionalProperty",
+					"@type": "@id"
+					}
 				}],
 				"@type": "RFSCatalogueCollection",
 	  			"@id": constants.API_ENTRY_POINT_RFSCATALOGUE,
