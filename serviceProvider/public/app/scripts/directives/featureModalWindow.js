@@ -6,10 +6,10 @@ angular.module('webserverApp').controller('featureModalInstanceCtrl',['$scope', 
 
 	$scope.RFSCatalogue = RFSCatalogue;
 	console.log('featureModalInstanceCtrl initiated',RFSCatalogue);
-	var url=encodeURIComponent(RFSCatalogue.features);
-	console.log('Comparing lengths:',RFSCatalogue.features.length,url.length);
-	console.log('loading features from url', 'http://localhost:3002/api/catalogue/' + encodeURIComponent(RFSCatalogue.features));
-	$http.get('http://localhost:3002/api/catalogue/' + encodeURIComponent(RFSCatalogue.features)).
+	$scope.RFSCatalogue.featureArray=[];
+	if (RFSCatalogue.features) {
+		console.log('loading features from url', 'http://serviceprovider.com:3002/api/catalogue/' + encodeURIComponent(RFSCatalogue.features));
+		$http.get('http://serviceprovider.com:3002/api/catalogue/' + encodeURIComponent(RFSCatalogue.features)).
 			success(function(data, status, headers, config) {
 				if (data.constructor === Array) {
 					var featureArray=data[0]['http://www.w3.org/ns/hydra/core#member'];
@@ -23,7 +23,7 @@ angular.module('webserverApp').controller('featureModalInstanceCtrl',['$scope', 
 						$scope.RFSCatalogue.featureArray.push(featureObject);
 						console.log('featureObject',featureObject);
 					})		    	
- 
+
 					console.log('Features get success',data,status);	
 				} else {
 					console.log('Features get error - no Array returned',data,status);
@@ -34,6 +34,7 @@ angular.module('webserverApp').controller('featureModalInstanceCtrl',['$scope', 
 			  // log error
 				console.log('Features get error',data, status, headers, config);
 			});  
+	}
   
   
   

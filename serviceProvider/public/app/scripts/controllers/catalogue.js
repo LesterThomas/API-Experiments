@@ -13,7 +13,7 @@ angular.module('webserverApp')
   	console.log('Started controller'); 
   	$scope.rfsCollection=[];
 	$scope.status='Loading';
-  	$http.get('http://localhost:3002/api/catalogue').
+  	$http.get('http://serviceprovider.com:3002/api/catalogue').
 		    success(function(data, status, headers, config) {
 				if (data.constructor === Array) {
 					$scope.status='Loaded';
@@ -22,7 +22,9 @@ angular.module('webserverApp')
 						//map expanded JSON-LD to internal representation
 						catalogueItem.name=dataItem['http://schema.org/name'][0]['@value'];
 						catalogueItem.description=dataItem['http://schema.org/description'][0]['@value'];
-						catalogueItem.features=dataItem['http://schema.org/additionalProperty'][0]['@id'];
+						if (dataItem['http://schema.org/additionalProperty']) {
+							catalogueItem.features=dataItem['http://schema.org/additionalProperty'][0]['@id'];
+						}
 						catalogueItem['@id']=dataItem['@id'];
 						$scope.rfsCollection.push(catalogueItem);
 					})		    	
