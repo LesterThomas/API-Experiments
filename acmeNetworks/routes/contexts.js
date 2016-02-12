@@ -21,7 +21,16 @@ router.get('/EntryPoint.jsonld', function(req, res) {
 			"RFSCatalogue": {
 				"@id": "vocab:EntryPoint/RFSCatalogue",
 				"@type": "@id"
+			},
+			"RFSOrder": {
+				"@id": "vocab:EntryPoint/RFSOrder",
+				"@type": "@id"
+			},
+			"RFSInventory": {
+				"@id": "vocab:EntryPoint/RFSInventory",
+				"@type": "@id"
 			}
+
 		}
 	};
 	res.contentType("application/ld+json");

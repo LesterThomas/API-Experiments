@@ -84,6 +84,40 @@ router.get('/', function(req, res) {
 				]
 			},
 			{
+				"@id": "http://schema.org/additionalProperty",
+				"@type": "hydra:Class",
+				"hydra:title": "Features",
+				"hydra:description": null,
+				"supportedOperation": [
+					{
+						"@id": "_:Features_create",
+						"@type": "http://schema.org/AddAction",
+						"method": "POST",
+						"label": "Creates a new Feature",
+						"description": null,
+						"expects": "http://schema.org/PropertyValue",
+						"returns": "http://schema.org/PropertyValue",
+						"statusCodes": [
+							{
+								"code": 201,
+								"description": "If the Feature was created successfully."
+							}
+						]
+					},
+					{
+					"@id": "_:Features_collection_retrieve",
+					"@type": "hydra:Operation",
+					"method": "GET",
+					"label": "Retrieves all Features for this RFSCatalogue item",
+					"description": null,
+					"expects": null,
+					"returns": "vocab:FeaturesCollection",
+					"statusCodes": []
+					}
+				]
+
+			},
+			{
 				"@id": "http://schema.org/RFSCatalogue",
 				"@type": "hydra:Class",
 				"hydra:title": "RFSCatalogue",
@@ -265,7 +299,7 @@ router.get('/', function(req, res) {
 							"@id": "vocab:EntryPoint/RFSCatalogue",
 							"@type": "hydra:Link",
 							"label": "RFSCatalogue",
-							"description": "The Resource Facing Service Catalogue collection",
+							"description": "The Resource Facing Service Catalogue",
 							"domain": "vocab:EntryPoint",
 							"range": "vocab:RFSCatalogueCollection",
 							"supportedOperation": [
@@ -282,7 +316,61 @@ router.get('/', function(req, res) {
 							]
 						},
 					"hydra:title": "RFSCatalogue",
-					"hydra:description": "The Resource Facing Service Catalogue collection",
+					"hydra:description": "The Resource Facing Service Catalogue.",
+					"required": null,
+					"readonly": false,
+					"writeonly": false
+				},
+				{
+						"property": {
+							"@id": "vocab:EntryPoint/RFSOrder",
+							"@type": "hydra:Link",
+							"label": "RFSOrder",
+							"description": "Create new orders for Resource Facing Services or view/amend existing orders.",
+							"domain": "vocab:EntryPoint",
+							"range": "vocab:RFSOrderCollection",
+							"supportedOperation": [
+								{
+								"@id": "_:RFSOrder_collection_retrieve",
+								"@type": "hydra:Operation",
+								"method": "GET",
+								"label": "Retrieves all Resource Facing Service orders",
+								"description": null,
+								"expects": null,
+								"returns": "vocab:RFSOrderCollection",
+								"statusCodes": []
+								}
+							]
+						},
+					"hydra:title": "RFSOrder",
+					"hydra:description": "Create new orders for Resource Facing Services or view/amend existing orders.",
+					"required": null,
+					"readonly": false,
+					"writeonly": false
+				},
+				{
+						"property": {
+							"@id": "vocab:EntryPoint/RFSInventory",
+							"@type": "hydra:Link",
+							"label": "RFSInventory",
+							"description": "Inventory of existing Resource Facing Services.",
+							"domain": "vocab:EntryPoint",
+							"range": "vocab:RFSInventoryCollection",
+							"supportedOperation": [
+								{
+								"@id": "_:RFSInventory_collection_retrieve",
+								"@type": "hydra:Operation",
+								"method": "GET",
+								"label": "Retrieves the inventory of all Resource Facing Services",
+								"description": null,
+								"expects": null,
+								"returns": "vocab:RFSInventoryCollection",
+								"statusCodes": []
+								}
+							]
+						},
+					"hydra:title": "RFSInventory",
+					"hydra:description": "Inventory of existing Resource Facing Services.",
 					"required": null,
 					"readonly": true,
 					"writeonly": false
@@ -327,6 +415,79 @@ router.get('/', function(req, res) {
 					"property": "http://www.w3.org/ns/hydra/core#member",
 					"hydra:title": "members",
 					"hydra:description": "The Resource Facing Service Catalogue items",
+					"required": null,
+					"readonly": false,
+					"writeonly": false
+				}
+			]
+		},
+		{
+			"@id": "vocab:RFSOrderCollection",
+			"@type": "hydra:Class",
+			"subClassOf": "http://www.w3.org/ns/hydra/core#Collection",
+			"label": "RFSOrderCollection",
+			"description": "A collection of Resource Facing Service orders",
+			"supportedOperation": [
+				{
+					"@id": "_:RFSOrder_create",
+					"@type": "http://schema.org/AddAction",
+					"method": "POST",
+					"label": "Creates a new Resource Facing Service order",
+					"description": null,
+					"expects": "http://schema.org/RFSOrder",
+					"returns": "http://schema.org/RFSOrder",
+					"statusCodes": [
+						{
+							"code": 201,
+							"description": "If the Resource Facing Service order was created successfully."
+						}
+					]
+				},
+				{
+					"@id": "_:RFSOrder_collection_retrieve",
+					"@type": "hydra:Operation",
+					"method": "GET",
+					"label": "Retrieves all Resource Facing Service orders",
+					"description": null,
+					"expects": null,
+					"returns": "vocab:RFSOrderCollection",
+					"statusCodes": []
+				}
+				],
+			"supportedProperty": [
+				{
+					"property": "http://www.w3.org/ns/hydra/core#member",
+					"hydra:title": "members",
+					"hydra:description": "The Resource Facing Service orders",
+					"required": null,
+					"readonly": false,
+					"writeonly": false
+				}
+			]
+		},
+		{
+			"@id": "vocab:RFSInventoryCollection",
+			"@type": "hydra:Class",
+			"subClassOf": "http://www.w3.org/ns/hydra/core#Collection",
+			"label": "RFSInventoryCollection",
+			"description": "A collection of Resource Facing Services",
+			"supportedOperation": [
+				{
+					"@id": "_:RFSInventory_collection_retrieve",
+					"@type": "hydra:Operation",
+					"method": "GET",
+					"label": "Retrieves the inventory of all Resource Facing Services",
+					"description": null,
+					"expects": null,
+					"returns": "vocab:RFSInventoryCollection",
+					"statusCodes": []
+				}
+				],
+			"supportedProperty": [
+				{
+					"property": "http://www.w3.org/ns/hydra/core#member",
+					"hydra:title": "members",
+					"hydra:description": "The Resource Facing Services",
 					"required": null,
 					"readonly": false,
 					"writeonly": false

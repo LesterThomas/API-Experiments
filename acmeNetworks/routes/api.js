@@ -1,4 +1,4 @@
-var constants=require('./constants');
+	var constants=require('./constants');
 var express = require('express');
 var router = express.Router();
 var request = require('request');
@@ -27,7 +27,9 @@ router.get('/', function(req, res) {
 		  "@context":constants.API_ENTRY_POINT_CONTEXT + "/EntryPoint.jsonld",
 		  "@id": constants.API_ENTRY_POINT,
 		  "@type": "EntryPoint",
-		  "RFSCatalogue": constants.API_ENTRY_POINT_RFSCATALOGUE
+		  "RFSCatalogue": constants.API_ENTRY_POINT_RFSCATALOGUE,
+		  "RFSOrder": constants.API_ENTRY_POINT_RFSORDER,
+		  "RFSInventory": constants.API_ENTRY_POINT_RFSINVENTORY
 		};
 	res.contentType("application/ld+json");
 	res.setHeader("link",'<'+constants.API_ENTRY_POINT_VOCAB+'>; rel="http://www.w3.org/ns/hydra/core#apiDocumentation"');
